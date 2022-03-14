@@ -1,11 +1,11 @@
-test:
-	docker-compose run app sh -c "python manage.py test"
-
-test-flake:
-	docker-compose run app sh -c "python manage.py test && flake8"
-
 build:
 	docker-compose build
 
 migrations:
-	docker-compose run app sh -c "python manage.py makemigrations core"
+	docker-compose run --rm app sh -c "python manage.py makemigrations core"
+
+test:
+	docker-compose run --rm app sh -c "python manage.py test"
+
+test-flake: test
+	docker-compose run --rm app sh -c "flake8"
